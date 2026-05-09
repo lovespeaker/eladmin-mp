@@ -98,6 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (userMapper.findByPhone(resources.getPhone()) != null) {
             throw new EntityExistException(User.class, "phone", resources.getPhone());
         }
+        resources.setIsAdmin(false);
         save(resources);
         // 保存用户岗位
         userJobMapper.insertData(resources.getId(), resources.getJobs());
