@@ -9,11 +9,11 @@
         <result column="method_name" property="methodName" jdbcType="VARCHAR"/>
         <result column="params" property="params" jdbcType="VARCHAR"/>
         <result column="cron_expression" property="cronExpression" jdbcType="VARCHAR"/>
-        <result column="is_pause" property="isPause" jdbcType="TINYINT"/>
+        <result column="is_pause" property="isPause" jdbcType="BOOLEAN"/>
         <result column="person_in_charge" property="personInCharge" jdbcType="VARCHAR"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="sub_task" property="subTask" jdbcType="VARCHAR"/>
-        <result column="pause_after_failure" property="pauseAfterFailure" jdbcType="TINYINT"/>
+        <result column="pause_after_failure" property="pauseAfterFailure" jdbcType="BOOLEAN"/>
         <result column="description" property="description" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -44,6 +44,6 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_quartz_job
-        WHERE is_pause = 0
+        WHERE is_pause = false
     </select>
 </mapper>

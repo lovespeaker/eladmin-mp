@@ -92,18 +92,58 @@
 - eladmin-generator 系统代码生成模块
 ```
 
-#### 特别鸣谢
 
-- 感谢 [PanJiaChen](https://github.com/PanJiaChen/vue-element-admin) 大佬提供的前端模板
 
-- 感谢 [Moxun](https://github.com/moxun1639) 大佬提供的前端 Curd 通用组件
 
-- 感谢 [zhy6599](https://gitee.com/zhy6599) 大佬提供的后端运维管理相关功能
+准备工作
+确保本地已安装：JDK 8+、Maven、Node.js 16+、PostgreSQL、Redis、MinIO（可选）
 
-- 感谢 [j.yao.SUSE](https://github.com/everhopingandwaiting) 大佬提供的匿名接口与Redis限流等功能
+1. 初始化数据库
+在 PostgreSQL 中创建数据库，然后导入 SQL：
 
-#### 项目捐赠
-项目的发展离不开你的支持，请作者喝杯咖啡吧☕  [Donate](https://eladmin.vip/pages/030101/)
 
-#### 反馈交流
-- QQ交流群：891137268 、947578238、659622532
+# 创建数据库
+psql -U postgres -c "CREATE DATABASE \"eladmin-mp\";"
+
+# 导入表结构和初始数据
+psql -U postgres -d eladmin-mp -f sql/eladmin_postgresql.sql
+
+# 如果使用 Quartz 定时任务，还需要导入
+psql -U postgres -d eladmin-mp -f sql/quartz_postgresql.sql
+2. 启动后端
+
+cd eladmin
+
+# 安装依赖并启动（默认使用 dev 环境）
+mvn clean install -DskipTests
+mvn spring-boot:run -pl eladmin-system
+主启动类：AppRun.java，端口 8000。
+
+3. 启动前端
+
+cd eladmin-web
+
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
+前端默认运行在 http://localhost:8012（vue-cli-service 默认端口，如有自定义可看 vue.config.js）。
+
+4. 登录
+地址：http://localhost:8012
+账号：admin
+密码：123456
+注意：dev 环境的 PostgreSQL 连接信息在 application-dev.yml，默认是 localhost:5432、用户 postgres、密码 wshjr123。如果不一样需要先改配置再启动。
+
+
+
+
+
+
+本项目基于 eladmin (Copyright 2019-2025 Zheng Jie, Apache 2.0) 二次开发
+已移除无用模块：代码生成、定时任务、运维监控等模块
+保留框架基础权限、用户、菜单核心模块
+原始 Apache 2.0 许可证见根目录 LICENSE 文件
+
+

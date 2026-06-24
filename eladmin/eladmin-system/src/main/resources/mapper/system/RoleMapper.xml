@@ -66,7 +66,7 @@
         <include refid="Where_sql"/>
         order by role.level
         <if test="criteria.offset != null">
-            limit #{criteria.offset}, #{criteria.size}
+            limit #{criteria.size} offset #{criteria.offset}
         </if>
         ) role
         left join sys_roles_menus srm on role.role_role_id = srm.role_id

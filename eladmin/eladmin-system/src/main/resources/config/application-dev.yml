@@ -4,9 +4,9 @@ spring:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.p6spy.engine.spy.P6SpyDriver
-      url: jdbc:p6spy:mysql://localhost:3306/eladmin-mp?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: root
-      password: 123456
+      url: jdbc:p6spy:postgresql://localhost:5432/eladmin-mp
+      username: postgres
+      password: wshjr123
       # 初始连接数，建议设置为与最小空闲连接数相同
       initial-size: 20
       # 最小空闲连接数，保持足够的空闲连接以应对请求
@@ -117,20 +117,19 @@ file:
   maxSize: 100
   avatarMaxSize: 5
 
-# 亚马逊S3协议云存储配置
-#支持七牛云，阿里云OSS，腾讯云COS，华为云OBS，移动云EOS等
+# MinIO 对象存储配置（S3协议兼容）
 amz:
   s3:
-    # 地域
-    region: test
-    # 地域对应的 endpoint
-    endPoint: https://s3.test.com
-    # 访问的域名
-    domain: https://s3.test.com
-    # 账号的认证信息，或者子账号的认证信息
-    accessKey: 填写你的AccessKey
-    secretKey: 填写你的SecretKey
-    # 存储桶（Bucket）
-    defaultBucket: 填写你的存储桶名称
+    # 地域（MinIO 可任意填写）
+    region: us-east-1
+    # MinIO 服务端点
+    endPoint: http://localhost:9000
+    # 访问的域名（与 endPoint 相同或替换为外网地址）
+    domain: http://localhost:9000
+    # MinIO 访问密钥
+    accessKey: minioadmin
+    secretKey: minioadmin
+    # 存储桶（Bucket，需先在 MinIO 中创建）
+    defaultBucket: eladmin
     # 文件存储路径
     timeformat: yyyy-MM

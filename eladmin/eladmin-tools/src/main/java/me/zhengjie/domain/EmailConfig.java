@@ -16,6 +16,7 @@
 package me.zhengjie.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,6 +28,10 @@ import java.io.Serializable;
  * 邮件配置类，数据存覆盖式存入数据存
  * @author Zheng Jie
  * @date 2018-12-26
+ * 
+ * 为适配postgresql数据库，在user字段上添加了@TableField("sender")注解，避免与关键字冲突
+ * @author jiarong
+ * @date 2026-6-24
  */
 @Data
 @TableName("tool_email_config")
@@ -44,6 +49,7 @@ public class EmailConfig implements Serializable {
     private String port;
 
     @NotBlank
+    @TableField("sender")
     @ApiModelProperty(value = "发件者用户名")
     private String user;
 

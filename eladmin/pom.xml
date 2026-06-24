@@ -139,11 +139,11 @@
             <version>1.5.22</version>
         </dependency>
 
-        <!--Mysql依赖包-->
+        <!--PostgreSQL依赖包-->
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>9.2.0</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
             <scope>runtime</scope>
         </dependency>
 
