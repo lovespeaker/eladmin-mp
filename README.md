@@ -15,12 +15,7 @@
 |--------------------------------------| --- |
 | https://github.com/elunez/eladmin-mp |  https://gitee.com/elunez/eladmin-mp   |
 
-#### VPS推荐
-<a href="https://bwh81.net/aff.php?aff=70876" target="_blank">
-<img src="https://eladmin.vip/images/banner/side.jpeg" style="width: 435px;border-radius: 2px;" alt="帮瓦工">
-</a>
 
-使用优惠码: `BWHNCXNVXV`，可获得 6.81% 的折扣， [查看介绍](https://eladmin.vip/pages/040101/)
 #### 主要特性
 - 使用最新技术栈，社区资源丰富。
 - 高效率开发，代码生成器可一键生成前后端代码
