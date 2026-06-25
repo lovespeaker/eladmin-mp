@@ -28,13 +28,16 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
 import java.util.*;
 
 /**
+ * 本次代码改动描述：将密码加密方式从 BCryptPasswordEncoder 替换为 SM3PasswordEncoder（国密 SM3 哈希），移除 BCrypt 相关导入
+ * @author jiarong
+ * @date 2026-06-26
+ * 
  * @author Zheng Jie
  */
 @Configuration
@@ -58,8 +61,8 @@ public class SpringSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // 密码加密方式
-        return new BCryptPasswordEncoder();
+        // 密码加密方式 —— 国密 SM3
+        return new SM3PasswordEncoder();
     }
 
     @Bean

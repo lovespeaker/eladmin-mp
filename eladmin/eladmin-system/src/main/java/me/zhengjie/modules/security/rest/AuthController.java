@@ -25,7 +25,7 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.annotation.rest.AnonymousDeleteMapping;
 import me.zhengjie.annotation.rest.AnonymousGetMapping;
 import me.zhengjie.annotation.rest.AnonymousPostMapping;
-import me.zhengjie.config.properties.RsaProperties;
+import me.zhengjie.config.properties.Sm2Properties;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.security.config.CaptchaConfig;
 import me.zhengjie.modules.security.config.enums.LoginCodeEnum;
@@ -36,7 +36,7 @@ import me.zhengjie.modules.security.service.UserDetailsServiceImpl;
 import me.zhengjie.modules.security.service.dto.AuthUserDto;
 import me.zhengjie.modules.security.service.dto.JwtUserDto;
 import me.zhengjie.modules.security.service.OnlineUserService;
-import me.zhengjie.utils.RsaUtils;
+import me.zhengjie.utils.Sm2Utils;
 import me.zhengjie.utils.RedisUtils;
 import me.zhengjie.utils.SecurityUtils;
 import me.zhengjie.utils.StringUtils;
@@ -55,6 +55,10 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 本次代码改动描述：登录密码解密从 RSA 迁移为 SM2，导入从 RsaProperties/RsaUtils 改为 Sm2Properties/Sm2Utils
+ * @author jiarong
+ * @date 2026-06-26
+ * 
  * @author Zheng Jie
  * @date 2018-11-23
  * 授权、根据token获取用户详细信息
@@ -79,8 +83,8 @@ public class AuthController {
     @ApiOperation("登录授权")
     @AnonymousPostMapping(value = "/login")
     public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
-        // 密码解密
-        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
+        // 密码解密 —— SM2 私钥解密
+        String password = Sm2Utils.decryptByPrivateKey(Sm2Properties.privateKey, authUser.getPassword());
         // 查询验证码
         String code = redisUtils.get(authUser.getUuid(), String.class);
         // 清除验证码

@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { encrypt } from '@/utils/rsaEncrypt'
+import { encrypt } from '@/utils/sm2Encrypt'
 import Config from '@/settings'
 import { getCodeImg } from '@/api/login'
 import Cookies from 'js-cookie'

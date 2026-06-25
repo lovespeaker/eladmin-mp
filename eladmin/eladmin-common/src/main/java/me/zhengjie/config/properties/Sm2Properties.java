@@ -20,19 +20,28 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Zheng Jie
- * @website <a href="https://eladmin.vip">...</a>
- * @description
- * @date 2020-05-18
+ * SM2 国密配置属性，替代原 RsaProperties
+ * <p>
+ * 本次代码改动描述：将 RSA 配置迁移为 SM2 国密配置，新增 publicKey 属性用于后端测试/工具场景的加密操作
+ *
+ * @author jiarong
+ * @date 2026-06-26
  **/
 @Data
 @Component
-public class RsaProperties {
+public class Sm2Properties {
 
     public static String privateKey;
 
-    @Value("${rsa.private_key}")
+    public static String publicKey;
+
+    @Value("${sm2.private-key}")
     public void setPrivateKey(String privateKey) {
-        RsaProperties.privateKey = privateKey;
+        Sm2Properties.privateKey = privateKey;
+    }
+
+    @Value("${sm2.public-key}")
+    public void setPublicKey(String publicKey) {
+        Sm2Properties.publicKey = publicKey;
     }
 }

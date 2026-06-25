@@ -21,7 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
-import me.zhengjie.config.properties.RsaProperties;
+import me.zhengjie.config.properties.Sm2Properties;
 import me.zhengjie.modules.system.domain.Dept;
 import me.zhengjie.modules.system.domain.Role;
 import me.zhengjie.modules.system.service.DataService;
@@ -50,6 +50,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * 本次代码改动描述：密码解密从 RSA 迁移为 SM2，导入从 RsaProperties 改为 Sm2Properties，RsaUtils 调用改为 Sm2Utils
+ * @author jiarong
+ * @date 2026-06-26
  * @author Zheng Jie
  * @date 2018-11-23
  */
@@ -154,8 +157,8 @@ public class UserController {
     @ApiOperation("修改密码")
     @PostMapping(value = "/updatePass")
     public ResponseEntity<Object> updateUserPass(@RequestBody UserPassVo passVo) throws Exception {
-        String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,passVo.getOldPass());
-        String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,passVo.getNewPass());
+        String oldPass = Sm2Utils.decryptByPrivateKey(Sm2Properties.privateKey,passVo.getOldPass());
+        String newPass = Sm2Utils.decryptByPrivateKey(Sm2Properties.privateKey,passVo.getNewPass());
         User user = userService.findByName(SecurityUtils.getCurrentUsername());
         if(!passwordEncoder.matches(oldPass, user.getPassword())){
             throw new BadRequestException("修改失败，旧密码错误");
@@ -185,7 +188,7 @@ public class UserController {
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
     public ResponseEntity<Object> updateUserEmail(@PathVariable String code, @RequestBody User resources) throws Exception {
-        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,resources.getPassword());
+        String password = Sm2Utils.decryptByPrivateKey(Sm2Properties.privateKey,resources.getPassword());
         User user = userService.findByName(SecurityUtils.getCurrentUsername());
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw new BadRequestException("密码错误");
